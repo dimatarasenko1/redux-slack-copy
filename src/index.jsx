@@ -21,12 +21,19 @@ const reducers = combineReducers({
   messages: messagesReducer
 });
 
+const initialState = {
+  activeChannel: null,
+  activeUser: null,
+  channels: [],
+  messages: []
+};
+
 const middlewares = applyMiddleware(reduxPromise);
 
 const root = document.getElementById('root');
 if (root) {
   ReactDOM.render(
-    <Provider store={createStore((reducers, {}, middlewares))}>
+    <Provider store={createStore((reducers, { initialState }, middlewares))}>
       <App />
     </Provider>,
     root

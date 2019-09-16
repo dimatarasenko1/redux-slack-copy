@@ -1,0 +1,58 @@
+.dash {
+  background-color: #4B3949;
+  padding: 20px;
+  width: 220px;
+
+  h2, a {
+    color: #A59CA4;
+  }
+  h2 {
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .heading {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .heading p {
+    margin: 0;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .user {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .user p {
+    margin: 0;
+  }
+
+  .user-icon.active-user {
+    font-size: 8px;
+    color: #20E5BD;
+  }
+
+  .user-icon {
+    font-size: 8px;
+    margin-right: 10px;
+  }
+
+  .channels ul i {
+    font-size: 0.85em;
+    margin-right: 10px;
+  }
+
+  .active-channel a {
+    color: white;
+  }
+}
