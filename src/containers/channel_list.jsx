@@ -9,8 +9,14 @@ import Channel from './channel';
 class ChannelList extends Component {
   componentWillMount() {
     const { setMessages, activeChannel } = this.props;
-    console.log(`the active channel is ${activeChannel}`);
     setMessages(activeChannel);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { setMessages, activeChannel } = this.props;
+    if (nextProps.activeChannel !== activeChannel) {
+      setMessages(nextProps.activeChannel);
+    }
   }
 
   render() {
