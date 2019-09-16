@@ -1,14 +1,4 @@
-const channels = [{ name: 'general' }];
-const channel = channels[0];
-
-export function setChannels() {
-  return {
-    type: "SET_CHANNELS",
-    payload: channels
-  };
-}
-
-export function selectChannel() {
+export function selectChannel(channel) {
   // TODO: Pass channel to this
   return {
     type: "SELECT_CHANNEL",
@@ -17,9 +7,24 @@ export function selectChannel() {
 }
 
 export function selectUser(user) {
-  // TODO: Pass channel to this
   return {
     type: "SELECT_USER",
     payload: user
+  };
+}
+
+export function setMessages(channel = null) {
+  let messages = [];
+  if (channel) {
+    fetch('https://wagon-chat.herokuapp.com/general/messages')
+      .then(response => response.json())
+      .then((data) => {
+        const { msgs } = data;
+        messages = msgs;
+      });
+  }
+  return {
+    type: "SET_MESSAGES",
+    payload: messages
   };
 }

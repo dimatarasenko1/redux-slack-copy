@@ -9,31 +9,34 @@ import '../assets/stylesheets/application.scss';
 import App from './components/app';
 
 import activeChannelReducer from "./reducers/active_channel_reducer";
-import activeUserReducer from "./reducers/active_user_reducer";
 import channelsReducer from "./reducers/channels_reducer";
 import messagesReducer from "./reducers/messages_reducer";
 
 
+const identityReducer = (state = null) => state;
+
+const initialState = {
+  messages: [],
+  channels: ['general', 'react', 'paris'],
+  activeUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+  activeChannel: 'general'
+};
+
 const reducers = combineReducers({
   activeChannel: activeChannelReducer,
-  activeUser: activeUserReducer,
+  activeUser: identityReducer,
   channels: channelsReducer,
   messages: messagesReducer
 });
 
-// const initialState = {
-//   activeChannel: null,
-//   activeUser: null,
-//   channels: [],
-//   messages: []
-// };
-
+// Middlewares
 const middlewares = applyMiddleware(reduxPromise);
+const store = createStore(reducers, initialState, middlewares);
 
 const root = document.getElementById('root');
 if (root) {
   ReactDOM.render(
-    <Provider store={createStore((reducers))}>
+    <Provider store={store}>
       <App />
     </Provider>,
     root

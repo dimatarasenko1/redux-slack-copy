@@ -21,7 +21,7 @@ class Channel extends Component {
       <li className={classes} onClick={this.handleClick}>
         <a href="#">
           <i className="fab fa-slack-hash" />
-          {this.props.channel.name}
+          {this.props.channel}
         </a>
       </li>
     );

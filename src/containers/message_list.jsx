@@ -2,85 +2,32 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import Message from './message';
+import { setMessages } from '../actions/index';
+
 class MessageList extends Component {
+  componentDidMount() {
+    setInterval(this.props.setMessages, 5000);
+  }
   render() {
-    if (this.props.activeChannel) {
+    const { activeChannel, messages } = this.props;
+    if (activeChannel) {
       return (
         <div className="selected-feed">
-          <h2><i className="fab fa-slack-hash"></i>{this.props.activeChannel.name}</h2>
+          <h2>
+            <i className="fab fa-slack-hash" />
+            {activeChannel}
+          </h2>
           <div className="message-history border-bottom border-top border-right py-3 mb-3">
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">arthur-littm</p>
-                <p className="text">Hey everyone We’ve just launched a new Le Wagon UI Kit 🚀 👉 <a href="#">https://uikit.lewagon.com/</a></p>
+            {messages.map(m => <Message m={m.content} key={m.created_at} />)}
+          </div>
+          <div className="send-message">
+            <form>
+              <div className="form-group m-0">
+                <input type="message" className="form-control" id="exampleInputMessage" aria-describedby="messageHelp" placeholder="Hey bro..." />
+                <small id="messageHelp" className="form-text text-muted">We'll never share your data with anyone else.</small>
               </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! </p>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-start align-items-center mb-4">
-              <img src="assets/images/my_face.jpeg" alt="my face" className="avatar" />
-              <div className="msg-details ml-3">
-                <p className="font-weight-bold username">cveneziani</p>
-                <p className="text">yay! 🤘</p>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       );
@@ -92,12 +39,13 @@ class MessageList extends Component {
 
 function mapStateToProps(state) {
   return {
-    activeChannel: state.activeChannel
+    activeChannel: state.activeChannel,
+    messages: state.messages
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ }, dispatch);
+  return bindActionCreators({ setMessages }, dispatch);
 }
 
 // export default FlatList;

@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import { setChannels } from '../actions/index';
+import { setMessages } from '../actions/index';
 
 import Channel from './channel';
 
 class ChannelList extends Component {
   componentWillMount() {
-    const { setChannels } = this.props;
-    setChannels();
+    const { setMessages } = this.props;
+    setMessages();
   }
 
   render() {
-    const { channels } = this.props;
+    const { channels, activeUser } = this.props;
     return (
       <div className="dash">
         <h2>Le Wagon</h2>
         <div className="user">
           <i className="fas fa-circle user-icon active-user" />
-          <p className="username">{this.props.activeUser.username}</p>
+          <p className="username">{activeUser}</p>
         </div>
         <div className="channels">
           <div className="heading">
@@ -27,7 +27,7 @@ class ChannelList extends Component {
             <i className="fas fa-plus" />
           </div>
           <ul>
-            {channels.map(channel => <Channel channel={channel} key={channel.name} />)}
+            {channels.map(channel => <Channel channel={channel} key={channel} />)}
           </ul>
         </div>
       </div>
@@ -44,7 +44,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setChannels }, dispatch);
+  return bindActionCreators({ setMessages }, dispatch);
 }
 
 // export default FlatList;
