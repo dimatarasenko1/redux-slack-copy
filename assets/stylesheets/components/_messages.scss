@@ -1,0 +1,17 @@
+.selected-feed h2 i {
+  margin-right: 10px;
+}
+
+.selected-feed {
+  padding: 20px;
+}
+
+.selected-feed .username, .selected-feed .text {
+  margin: 0;
+  padding: 0;
+}
+
+.message-history {
+  flex-grow: 1;
+  overflow-y: scroll;
+}

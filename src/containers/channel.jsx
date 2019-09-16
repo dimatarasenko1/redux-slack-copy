@@ -5,22 +5,23 @@ import { connect } from "react-redux";
 import { selectChannel } from '../actions/index';
 
 class Channel extends Component {
-  handleClick = () => {
+  handleClick = (event) => {
     const { selectChannel, channel } = this.props;
+    event.preventDefault();
     selectChannel(channel);
   };
 
   render() {
     const { activeChannel, channel } = this.props;
-    let classes = "list-group-item";
+    let classes = "";
     if (channel === activeChannel) {
-      classes += " active";
+      classes = "active-channel";
     }
     return (
-      <li className="active-channel" onclick={this.handleClick}>
+      <li className={classes} onClick={this.handleClick}>
         <a href="#">
           <i className="fab fa-slack-hash" />
-          design
+          {this.props.channel.name}
         </a>
       </li>
     );

@@ -19,7 +19,7 @@ class ChannelList extends Component {
         <h2>Le Wagon</h2>
         <div className="user">
           <i className="fas fa-circle user-icon active-user" />
-          <p className="username">Dima Tarasenko</p>
+          <p className="username">{this.props.activeUser.username}</p>
         </div>
         <div className="channels">
           <div className="heading">
@@ -38,7 +38,8 @@ class ChannelList extends Component {
 
 function mapStateToProps(state) {
   return {
-    channels: state.channels
+    channels: state.channels,
+    activeUser: state.activeUser
   };
 }
 

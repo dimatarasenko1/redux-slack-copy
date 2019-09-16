@@ -15,3 +15,11 @@ export function selectChannel() {
     payload: channel
   };
 }
+
+export function selectUser(user) {
+  // TODO: Pass channel to this
+  return {
+    type: "SELECT_USER",
+    payload: user
+  };
+}
