@@ -8,8 +8,9 @@ import Channel from './channel';
 
 class ChannelList extends Component {
   componentWillMount() {
-    const { setMessages } = this.props;
-    setMessages();
+    const { setMessages, activeChannel } = this.props;
+    console.log(`the active channel is ${activeChannel}`);
+    setMessages(activeChannel);
   }
 
   render() {
@@ -39,7 +40,8 @@ class ChannelList extends Component {
 function mapStateToProps(state) {
   return {
     channels: state.channels,
-    activeUser: state.activeUser
+    activeUser: state.activeUser,
+    activeChannel: state.activeChannel
   };
 }
 

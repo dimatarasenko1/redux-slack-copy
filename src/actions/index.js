@@ -1,5 +1,4 @@
 export function selectChannel(channel) {
-  // TODO: Pass channel to this
   return {
     type: "SELECT_CHANNEL",
     payload: channel
@@ -14,17 +13,42 @@ export function selectUser(user) {
 }
 
 export function setMessages(channel = null) {
-  let messages = [];
-  if (channel) {
-    fetch('https://wagon-chat.herokuapp.com/general/messages')
-      .then(response => response.json())
-      .then((data) => {
-        const { msgs } = data;
-        messages = msgs;
-      });
-  }
+  const url = `https://wagon-chat.herokuapp.com/${channel}/messages`;
+  const promise = fetch(url).then(r => r.json());
   return {
     type: "SET_MESSAGES",
-    payload: messages
+    payload: promise
+  };
+}
+
+export function setValue(value) {
+  return {
+    type: "SET_VALUE",
+    payload: value
+  };
+}
+
+export function sendMessage(message, user, channel) {
+  // response should be the result of sending message
+  const body = {
+    author: user,
+    content: message
+  };
+  const url = `https://wagon-chat.herokuapp.com/${channel}/messages`;
+  let status = null;
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(r => {
+    status = r.code;
+    r.json();
+  });
+  return {
+    type: "SEND_MESSAGE",
+    payload: status
   };
 }

@@ -1,9 +1,9 @@
 export default function(state, action) {
   if (state === undefined) {
-    return { channel: null, messages: [] };
+    return [];
   }
   switch (action.type) {
-    case "SET_MESSAGES":
+    case "SET_VALUE":
       return action.payload;
     default:
       return state;

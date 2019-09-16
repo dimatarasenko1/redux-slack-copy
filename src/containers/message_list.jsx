@@ -3,14 +3,16 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import Message from './message';
+import MessageForm from './message_form';
 import { setMessages } from '../actions/index';
 
 class MessageList extends Component {
   componentDidMount() {
-    setInterval(this.props.setMessages, 5000);
+    setInterval(() => this.props.setMessages(this.props.activeChannel), 5000);
   }
   render() {
     const { activeChannel, messages } = this.props;
+    console.log(messages)
     if (activeChannel) {
       return (
         <div className="selected-feed">
@@ -19,16 +21,9 @@ class MessageList extends Component {
             {activeChannel}
           </h2>
           <div className="message-history border-bottom border-top border-right py-3 mb-3">
-            {messages.map(m => <Message m={m.content} key={m.created_at} />)}
+            {messages.messages.map(m => <Message m={m} key={m.created_at} />)}
           </div>
-          <div className="send-message">
-            <form>
-              <div className="form-group m-0">
-                <input type="message" className="form-control" id="exampleInputMessage" aria-describedby="messageHelp" placeholder="Hey bro..." />
-                <small id="messageHelp" className="form-text text-muted">We'll never share your data with anyone else.</small>
-              </div>
-            </form>
-          </div>
+          {<MessageForm />}
         </div>
       );
     }

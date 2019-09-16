@@ -11,22 +11,26 @@ import App from './components/app';
 import activeChannelReducer from "./reducers/active_channel_reducer";
 import channelsReducer from "./reducers/channels_reducer";
 import messagesReducer from "./reducers/messages_reducer";
+import sendMessagesReducer from "./reducers/send_messages_reducer";
+import currentValueReducer from "./reducers/current_value_reducer";
 
 
 const identityReducer = (state = null) => state;
 
 const initialState = {
-  messages: [],
   channels: ['general', 'react', 'paris'],
   activeUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`,
-  activeChannel: 'general'
+  activeChannel: 'general',
+  formValue: 'hello'
 };
 
 const reducers = combineReducers({
   activeChannel: activeChannelReducer,
   activeUser: identityReducer,
   channels: channelsReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  sendMessage: sendMessagesReducer,
+  formValue: currentValueReducer
 });
 
 // Middlewares
